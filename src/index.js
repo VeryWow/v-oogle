@@ -5,7 +5,7 @@ import views from 'views'
 // import router from 'router'
 // import plugins from 'plugins'
 
-Vue.use(plugins);
+// Vue.use(plugins);
 
 new Vue({
   el: 'app',
