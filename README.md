@@ -1,2 +1,2 @@
 # v-oogle
-A main google page in Vue.js
+Google.com, reVued
