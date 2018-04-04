@@ -44,11 +44,10 @@ const config = {
 
       // Other aliases go there
       '@': path.resolve(__dirname, '../src', './'),
-      // '~': path.resolve(__dirname, '../src', './assets'),
+      '~': path.resolve(__dirname, '../src', './assets'),
       'views': path.resolve(__dirname, '../src', './views'),
-      // 'components': path.resolve(__dirname, '../src', './views/components'),
-      // 'router': path.resolve(__dirname, '../src', './router'),
-      // 'plugins': path.resolve(__dirname, '../src', './plugins'),
+      'components': path.resolve(__dirname, '../src', './views/components'),
+      'plugins': path.resolve(__dirname, '../src', './plugins'),
     }
   },
   cache: true,

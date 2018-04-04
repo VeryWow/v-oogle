@@ -2,7 +2,6 @@
   h1
     | H{{ sum }}LLO, cruel world!
     hr
-    router-view
 </template>
 
 <script>

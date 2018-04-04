@@ -22,7 +22,8 @@
     "url": "https://github.com/VeryWow/vuegle/issues"
   },
   "dependencies": {
-    "vue": "^2.5.16"
+    "vue": "^2.5.16",
+    "vue-simple-events": "^1.1.2"
   },
   "devDependencies": {
     "@types/jest": "^22.2.0",
