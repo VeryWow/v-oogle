@@ -12,6 +12,7 @@
     "start-dev": "npm run build-dev && npm run server",
     "test": "jest"
   },
+  "prepush": "npm run build && (git add .) && git commit -m Build.",
   "homepage": "https://github.com/VeryWow/v-oogle#readme",
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "element-ui": "^2.2.2",
     "html-webpack-plugin": "^3.0.7",
     "http-server-spa": "^1.2.0",
+    "husky": "^0.14.3",
     "jest": "^22.4.3",
     "jest-vue-preprocessor": "^1.4.0",
     "node-sass": "^4.7.2",
