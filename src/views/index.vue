@@ -4,7 +4,7 @@
     hr
 </template>
 
-<script>
+<script lang="ts">
   import Vue from 'vue'
 
   export default Vue.extend({
@@ -13,7 +13,7 @@
       b: 1
     }),
     computed: {
-      sum() {
+      sum(): number {
         // Everything works right in development
         if (this.$isDevelopment) {
           return this.a + this.b;
