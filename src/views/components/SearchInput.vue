@@ -44,15 +44,23 @@
       defaultList: [
         {
           id: 1,
-          title: 'vue-simple-suggest'
+          title: 'vue-simple-suggest',
+          link: 'https://github.com/KazanExpress/vue-simple-suggest'
         },
         {
           id: 2,
-          title: 'vue-simple-events'
+          title: 'dadata-js',
+          link: 'https://github.com/KazanExpress/dadata-js'
         },
         {
           id: 3,
-          title: 'vue-simple-headful'
+          title: 'vue-simple-events',
+          link: 'https://github.com/VeryWow/vue-simple-events'
+        },
+        {
+          id: 4,
+          title: 'vue-simple-headful',
+          link: 'https://github.com/VeryWow/vue-simple-headful'
         }
       ]
     }},
@@ -63,7 +71,6 @@
         }
       },
       onHideList() {
-        console.log('onHideList')
         if (this.isSelected) {
           this.$refs.frm['submit']()
           this.isSelected = false
@@ -100,7 +107,7 @@
               let autocompleteText = json.shift()
               autocompleteText = autocompleteText.trim()
               let result: any[] = []
-              const fields = ['title', 'description', 'link']
+              const fields = ['title', 'description']
               json.forEach((part, i) => {
                 part.forEach((el, j) => {
                   if (!result[j]) {
@@ -108,7 +115,9 @@
                       id: j+1
                     })
                   }
-                  result[j][fields[i]] = el
+                  if (fields[i]) {
+                    result[j][fields[i]] = el
+                  }
                 })
               })
               resolve(result.length ? result : [...this.defaultList])
