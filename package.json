@@ -10,7 +10,7 @@
     "server": "http-server-spa dist index.html 5000",
     "start": "npm run build && npm run server",
     "start-dev": "npm run build-dev && npm run server",
-    "prepush": "npm run build && (git add .) && git commit -m Build.",
+    "prepush": "npm run build && (git add .) && git commit -m Build. && git push",
     "test": "jest"
   },
   "homepage": "https://github.com/VeryWow/v-oogle#readme",
@@ -46,7 +46,7 @@
     "ts-node": "^5.0.1",
     "typescript": "^2.7.2",
     "vue-loader": "^14.2.1",
-    "vue-simple-suggest": "^1.4.2",
+    "vue-simple-suggest": "^1.5.8",
     "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.16",
     "vue-test-utils": "^1.0.0-beta.11",
@@ -58,8 +58,7 @@
   },
   "dependencies": {
     "vue": "^2.5.16",
-    "vue-simple-events": "^1.1.2",
-    "vue-simple-suggest": "^1.5.5"
+    "vue-simple-events": "^1.1.2"
   },
   "keywords": [
     "boilerplate",
