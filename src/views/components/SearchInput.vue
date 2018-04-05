@@ -212,10 +212,26 @@
 
 @media screen and (max-device-width: 679px) {
   .vue-simple-suggest {
+    // position: sticky;
+    // top: 0;
+
+    // .default-input {
+    //   position: sticky;
+    //   top: 0;
+    // }
+
     .suggestions .suggest-item {
       padding: 12px 16px !important;
-      // line-height: 48px !important;
-      &:not(:last-child) {
+
+      span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+        width: 100%;
+      }
+
+      &:not(:last-of-type) {
         border-bottom: 1px solid #dedede;
       }
     }
