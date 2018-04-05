@@ -160,9 +160,14 @@
     right: 0;
     left: 0;
 
+    &, * {
+      user-select: none;
+    }
+
     .suggest-item {
       padding: 0 16px;
       line-height: 22px;
+      cursor: pointer;
 
       &:hover, &.hover {
         background: #eee;
