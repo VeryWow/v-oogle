@@ -1,6 +1,6 @@
 <template lang="pug">
 .v-oogle
-  .logo-box
+  .logo-box(:class="{ 'move-up': inputFocused }")
     div
       a(href="https://github.com/VeryWow/v-oogle")
         img(
@@ -8,7 +8,7 @@
         title="Because why not?"
         :src="logo")
   .search-box
-    search-input.search
+    search-input.search(@focus="inputFocused = true", @blur="inputFocused = false")
 </template>
 
 <script lang="ts">
@@ -21,6 +21,9 @@
     components: {
       SearchInput
     },
+    data: () => ({
+      inputFocused: false
+    }),
     computed: {
       logo() {
         return require('~/v-oogle.png');
@@ -85,9 +88,14 @@
   .v-oogle {
     .logo-box {
       margin-top: 0;
+      transition: margin .15s ease;
 
       div {
         padding-top: 40px;
+      }
+
+      &.move-up {
+        margin-top: -160px;
       }
     }
     .search-box {

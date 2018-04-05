@@ -15,6 +15,8 @@
     :list="getList",
     :min-length="0",
     :destyled="true",
+    @focus="$emit('focus', $event)",
+    @blur="$emit('blur', $event)",
     @select="onSelect")
       div(
       slot="suggestion-item",
