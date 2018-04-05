@@ -10,8 +10,6 @@
     "allowSyntheticDefaultImports": true,
     "experimentalDecorators": true,
     "alwaysStrict": true,
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "noImplicitThis": true,
@@ -28,7 +26,8 @@
       "plugins": ["./plugins"]
     },
     "types": [
-      "vue-typescript-import-dts"
+      "vue-typescript-import-dts",
+      "vue/types"
     ]
   }
 }

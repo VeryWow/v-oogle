@@ -4,26 +4,26 @@
     div
       a(href="https://github.com/VeryWow/v-oogle")
         img(
-          alt="V-oogle"
-          title="Because why not?"
-          :src="logo"
-        )
+        alt="V-oogle"
+        title="Because why not?"
+        :src="logo")
   .search-box
     search-input.search
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
-  import SearchInput from './components/SearchInput.vue'
+  //@ts-ignore
+  import SearchInput from 'components/SearchInput.vue'
   // import logo from '~/v-oogle.png'
 
+  import Vue from 'vue'
   export default Vue.extend({
     components: {
       SearchInput
     },
     computed: {
       logo() {
-        return require('../assets/v-oogle.png');
+        return require('~/v-oogle.png');
       }
     }
   })
@@ -35,16 +35,13 @@
   font-family: arial,sans-serif;
 }
 
-html {
-  min-width: 980px;
-}
-
 .v-oogle {
   .logo-box {
     margin-top: 89px;
     text-align: center;
 
     div {
+      user-select: none;
       padding-top: 109px;
       display: block;
       margin: 0 auto;
@@ -70,6 +67,32 @@ html {
     .search-box {
       .search {
         width: 584px;
+      }
+    }
+  }
+}
+
+@media screen and (min-device-width: 680px) {
+  html {
+    min-width: 980px;
+  }
+}
+
+@media screen and (max-device-width: 679px) {
+  html {
+    padding: 10px;
+  }
+  .v-oogle {
+    .logo-box {
+      margin-top: 0;
+
+      div {
+        padding-top: 40px;
+      }
+    }
+    .search-box {
+      .search {
+        width: 100%;
       }
     }
   }

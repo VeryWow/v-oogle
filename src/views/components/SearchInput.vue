@@ -1,46 +1,51 @@
 <template lang="pug">
   form.search-input-component(
-  ref="frm"
-  onsubmit="return q.value!=''"
+  ref="frm",
+  onsubmit="return !!q.value",
   action="https://google.com/search")
     vue-suggest(
-    v-model="query"
-    ref="suggestComponent"
-    value-attribute="id"
-    display-attribute="title"
-    spellcheck="false"
-    autocomplete="off"
-    name="q"
-    :debounce="100"
-    :list="getList"
-    :min-length="0"
-    :destyled="true"
-    @hide-list="onHideList"
+    v-model="query",
+    ref="suggestComponent",
+    value-attribute="id",
+    display-attribute="title",
+    spellcheck="false",
+    autocomplete="off",
+    name="q",
+    :debounce="100",
+    :list="getList",
+    :min-length="0",
+    :destyled="true",
     @select="onSelect")
       div(
-      slot="suggestion-item"
-      slot-scope="scope"
+      slot="suggestion-item",
+      slot-scope="scope",
       :title="scope.suggestion.description")
         span(v-html="boldenSuggestion(scope)")
 
-      //- div(
-      //- slot="misc-item-below")
-      //-   button Google search
+      div.buttons-container.list(slot="misc-item-below")
+        v-oogle-button(:has-query="!!query")
+        v-oogle-button(feeling-lucky, :has-query="!!query")
 
-    button(type="submit" style="display:none")
+    input(name="sourceid", value="navclient", type="hidden")
+
+    div.buttons-container
+      v-oogle-button(:has-query="!!query")
+      v-oogle-button(feeling-lucky, :has-query="!!query")
 </template>
 
 <script lang="ts">
   import Vue from 'vue'
   import VueSuggest from 'vue-simple-suggest/lib'
 
+  import VOogleButton from './VoogleButton.vue'
+
   export default Vue.extend({
     components: {
-      VueSuggest
+      VueSuggest,
+      VOogleButton
     },
     data() { return {
       query: '',
-      isSelected: false,
       defaultList: [
         {
           id: 1,
@@ -67,14 +72,11 @@
     methods: {
       onSelect(item) {
         if (item) {
-          this.isSelected = true
+          this.$nextTick(() => this.submitForm())
         }
       },
-      onHideList() {
-        if (this.isSelected) {
-          this.$refs.frm['submit']()
-          this.isSelected = false
-        }
+      submitForm() {
+        this.$refs.frm['submit']()
       },
       boldenSuggestion({ suggestion, query }) {
         let result = suggestion.title;
@@ -137,49 +139,69 @@
 <style lang="scss">
 .search-input-component {
   position: relative;
-  .input-wrapper {
+
+  .vue-simple-suggest {
     position: relative;
-    z-index: 1;
-  }
-  input {
-    width: 100%;
-    border: none;
-    font-size: 16px;
-    line-height: 34px;
-    outline: none;
 
-    padding: 6px 9px 4px 16px;
-    background-color: #fff;
-    vertical-align: top;
-    border-radius: 2px;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
-    transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    .input-wrapper {
+      position: relative;
+      z-index: 1;
+    }
 
-    &:hover, &:focus {
+    .default-input {
+      width: 100%;
+      border: none;
+      font-size: 16px;
+      line-height: 34px;
+      outline: none;
+
+      padding: 6px 9px 4px 16px;
+      background-color: #fff;
+      vertical-align: top;
+      border-radius: 2px;
+      box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
+      transition: box-shadow 200ms cubic-bezier(0.4, 0.0, 0.2, 1);
+
+      &:hover, &:focus {
+        box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);
+      }
+    }
+
+    .suggestions {
+      background-color: #fff;
       box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);
+      border: none;
+      z-index: 2;
+      position: absolute;
+      right: 0;
+      left: 0;
+      top: calc(100% - 1px);
+
+      &, * {
+        user-select: none;
+      }
+
+      .suggest-item {
+        padding: 0 16px;
+        line-height: 22px;
+        cursor: pointer;
+
+        &:hover, &.hover {
+          background: #eee;
+        }
+      }
     }
   }
 
-  .suggestions {
-    background-color: #fff;
-    box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);
-    border: none;
-    z-index: 2;
-    position: absolute;
-    right: 0;
-    left: 0;
+  .buttons-container {
+    padding-top: 18px;
+    text-align: center;
 
-    &, * {
-      user-select: none;
-    }
+    &.list {
+      padding-top: 10px;
 
-    .suggest-item {
-      padding: 0 16px;
-      line-height: 22px;
-      cursor: pointer;
-
-      &:hover, &.hover {
-        background: #eee;
+      button {
+        height: 30px;
       }
     }
   }
