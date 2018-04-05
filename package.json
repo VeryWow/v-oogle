@@ -1,6 +1,6 @@
 {
   "name": "v-oogle",
-  "version": "20180402.0.0",
+  "version": "20180403.0.0",
   "description": "A main google page written in Vue,js",
   "author": "Raiondesu <a.raiondesu@gmail.com>",
   "scripts": {
@@ -11,6 +11,7 @@
     "start": "npm run build && npm run server",
     "start-dev": "npm run build-dev && npm run server",
     "preversion": "npm run build && (git add .) && git commit -m Build.",
+    "postversion": "git push",
     "test": "jest"
   },
   "homepage": "https://github.com/VeryWow/v-oogle#readme",
