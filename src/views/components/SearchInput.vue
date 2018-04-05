@@ -170,6 +170,7 @@
     }
 
     .suggestions {
+      margin-bottom: 18px;
       background-color: #fff;
       box-shadow: 0 3px 8px 0 rgba(0,0,0,0.2), 0 0 0 1px rgba(0,0,0,0.08);
       border: none;
@@ -205,6 +206,22 @@
       button {
         height: 30px;
       }
+    }
+  }
+}
+
+@media screen and (max-device-width: 679px) {
+  .vue-simple-suggest {
+    .suggestions .suggest-item {
+      padding: 12px 16px !important;
+      // line-height: 48px !important;
+      &:not(:last-child) {
+        border-bottom: 1px solid #dedede;
+      }
+    }
+
+    .buttons-container.list {
+      display: none;
     }
   }
 }

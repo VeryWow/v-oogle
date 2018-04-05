@@ -1,6 +1,5 @@
 <template lang="pug">
-  button.v-oogle-button(:type="type()", :name="name()", :onclick="click()")
-    | {{ value() }}
+  button.v-oogle-button(:type="type()", :name="name()", :onclick="click()", v-html="value()")
 </template>
 
 <script lang="ts">
@@ -21,7 +20,7 @@
         return this['feelingLucky'] ? 'btnI' : 'btnK'
       },
       value() {
-        return this['feelingLucky'] ? 'I\'m Feeling Lucky' : 'V-oogle Search'
+        return this['feelingLucky'] ? 'I\'m Feeling Lucky' : 'V<span style="vertical-align: middle">·</span>oogle Search'
       },
       type() {
         return this['hasQuery'] ? 'submit' : 'button'
