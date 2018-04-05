@@ -1,7 +1,12 @@
 <template lang="pug">
 .v-oogle
   .logo-box
-    img(alt="Google" src="https://www.google.ru/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png")
+    a(href="https://github.com/VeryWow/v-oogle")
+      img(
+        alt="V-oogle"
+        title="Because why not?"
+        :src="logo"
+      )
   .search-box
     search-input.search
 </template>
@@ -9,10 +14,16 @@
 <script lang="ts">
   import Vue from 'vue'
   import SearchInput from './components/SearchInput.vue'
+  // import logo from '~/v-oogle.png'
 
   export default Vue.extend({
     components: {
       SearchInput
+    },
+    computed: {
+      logo() {
+        return require('../assets/v-oogle.png');
+      }
     }
   })
 </script>
