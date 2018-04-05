@@ -25,7 +25,7 @@ const config: Configuration = {
   module: {
     rules: [
       {
-        test: /\.vue$/,
+        test: /\.vue?$/,
         loader: 'vue-loader',
         options: {
           loaders: {
