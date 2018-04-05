@@ -1,12 +1,13 @@
 <template lang="pug">
 .v-oogle
   .logo-box
-    a(href="https://github.com/VeryWow/v-oogle")
-      img(
-        alt="V-oogle"
-        title="Because why not?"
-        :src="logo"
-      )
+    div
+      a(href="https://github.com/VeryWow/v-oogle")
+        img(
+          alt="V-oogle"
+          title="Because why not?"
+          :src="logo"
+        )
   .search-box
     search-input.search
 </template>
@@ -43,10 +44,15 @@ html {
     margin-top: 89px;
     text-align: center;
 
-    img {
+    div {
       padding-top: 109px;
       display: block;
       margin: 0 auto;
+      width: 272px;
+
+      img {
+        display: block;
+      }
     }
   }
 
