@@ -10,7 +10,7 @@
     "server": "http-server-spa dist index.html 5000",
     "start": "npm run build && npm run server",
     "start-dev": "npm run build-dev && npm run server",
-    "prepush": "npm run build && (git add .) && git commit -m Build. && git push",
+    "prepush": "npm run build && (git add .) && git commit -m Build.",
     "test": "jest"
   },
   "homepage": "https://github.com/VeryWow/v-oogle#readme",
