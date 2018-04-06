@@ -47,7 +47,6 @@
     "ts-node": "^5.0.1",
     "typescript": "^2.7.2",
     "vue-loader": "^14.2.1",
-    "vue-simple-suggest": "github:kazanexpress/vue-simple-suggest#dev",
     "vue-style-loader": "^4.1.0",
     "vue-template-compiler": "^2.5.16",
     "vue-test-utils": "^1.0.0-beta.11",
@@ -59,7 +58,8 @@
   },
   "dependencies": {
     "vue": "^2.5.16",
-    "vue-simple-events": "^1.1.2"
+    "vue-simple-events": "^1.1.2",
+    "vue-simple-suggest": "^1.6.0"
   },
   "keywords": [
     "boilerplate",
