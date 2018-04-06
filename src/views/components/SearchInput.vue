@@ -17,7 +17,7 @@
     :destyled="true",
     @focus="$emit('focus', $event)",
     @blur="$emit('blur', $event)",
-    @select="onSelect")
+    @select="submitForm")
       div(
       slot="suggestion-item",
       slot-scope="scope",
@@ -72,13 +72,14 @@
       ]
     }},
     methods: {
-      onSelect(item) {
-        if (item) {
-          this.$nextTick(() => this.submitForm())
-        }
-      },
-      submitForm() {
-        this.$refs.frm['submit']()
+      submitForm(suggestion) {
+        this.$nextTick(() => {
+          if (suggestion.title) {
+            this.query = suggestion.title
+          }
+
+          this.$refs.frm['submit']()
+        })
       },
       boldenSuggestion({ suggestion, query }) {
         let result = suggestion.title;
