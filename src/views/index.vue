@@ -6,6 +6,8 @@
         img(
         alt="V-oogle"
         title="Because why not?"
+        width="272"
+        height="84"
         :src="logo")
   .search-box
     search-input.search(@focus="inputFocused = true", @blur="inputFocused = false")
