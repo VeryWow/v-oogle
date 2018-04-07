@@ -1,6 +1,6 @@
 {
   "name": "v-oogle",
-  "version": "20180406.0.0",
+  "version": "20180407.0.0",
   "description": "A main google page written in Vue,js",
   "author": "Raiondesu <a.raiondesu@gmail.com>",
   "scripts": {
