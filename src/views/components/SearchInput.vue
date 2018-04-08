@@ -2,15 +2,12 @@
   form.search-input-component(
   ref="frm",
   onsubmit="return !!q.value",
+  @submit="add(equalSuggestion ? equalSuggestion : { id: query.hashCode(), title: query })"
   action="https://google.com/search")
     vue-suggest(
-    v-model="query",
     ref="suggestComponent",
     value-attribute="id",
     display-attribute="title",
-    spellcheck="false",
-    autocomplete="off",
-    name="q",
     :debounce="100",
     :list="getList",
     :min-length="0",
@@ -18,13 +15,20 @@
     @focus="$emit('focus', $event)",
     @blur="$emit('blur', $event)",
     @select="submitForm")
+      input.default-input(v-model="query",
+      spellcheck="false",
+      autocomplete="off",
+      name="q")
+
       div(
       slot="suggestion-item",
-      slot-scope="scope",
-      :title="scope.suggestion.description")
-        span(v-html="boldenSuggestion(scope)")
+      slot-scope="{ suggestion }",
+      :title="suggestion.description")
+        span(v-html="boldenSuggestion({ suggestion, query })", :class="{ visited: !!suggestion.visited }")
+        a(v-if="suggestion.visited", @click.stop.prevent="remove(suggestion)", style="float:right", href="#")
+          | remove
 
-      div.buttons-container.list(slot="misc-item-below")
+      div.buttons-container.list(slot="misc-item-below", slot-scope="{ suggestions }", v-if="suggestions.length > 0")
         v-oogle-button(:has-query="!!query")
         v-oogle-button(feeling-lucky, :has-query="!!query")
 
@@ -41,38 +45,37 @@
 
   import VOogleButton from './VoogleButton.vue'
 
+  import { StorageAccess } from 'plugins/storage'
+
+  const storage = new StorageAccess('[]');
+  const storageKey = 'lol-history';
+  const maxLength = 6;
+
+  const visitedKey = 'visited';
+
+  const records: any[] = (storage.get(storageKey) as any[]).sort((a, b) => 0 - (a[visitedKey] - b[visitedKey]));
+
   export default Vue.extend({
     components: {
       VueSuggest,
       VOogleButton
     },
-    data() { return {
-      query: '',
-      defaultList: [
-        {
-          id: 1,
-          title: 'vue-simple-suggest',
-          link: 'https://github.com/KazanExpress/vue-simple-suggest'
-        },
-        {
-          id: 2,
-          title: 'dadata-js',
-          link: 'https://github.com/KazanExpress/dadata-js'
-        },
-        {
-          id: 3,
-          title: 'vue-simple-events',
-          link: 'https://github.com/VeryWow/vue-simple-events'
-        },
-        {
-          id: 4,
-          title: 'vue-simple-headful',
-          link: 'https://github.com/VeryWow/vue-simple-headful'
-        }
-      ]
-    }},
+    data() {
+      return {
+        query: '',
+        selected: null,
+        records
+      }
+    },
+    computed: {
+      equalSuggestion() {
+        return this['$refs'].suggestComponent.suggestions.find(s => s.title === this['query']);
+      }
+    },
     methods: {
       submitForm(suggestion) {
+        this.selected = suggestion;
+        this.add(this.selected);
         this.$nextTick(() => {
           if (suggestion.title) {
             this.query = suggestion.title
@@ -80,6 +83,29 @@
 
           this.$refs.frm['submit']()
         })
+      },
+      add(suggestion) {
+        if (suggestion) {
+          if (this.records.length < maxLength) {
+            let rec: any = this.records.find(r => r.id === suggestion.id);
+
+            if (!rec) {
+              rec = { ...suggestion };
+              rec[visitedKey] = 1;
+              this.records.push(rec);
+            } else {
+              rec[visitedKey]++;
+            }
+
+            storage.set(storageKey, this.records);
+          }
+        }
+      },
+      remove(suggestion) {
+        const result = this.records.filter(r => r.id !== suggestion.id);
+        storage.set(storageKey, result);
+        this.$set(this, 'records', result);
+        this.$refs.suggestComponent['research']()
       },
       boldenSuggestion({ suggestion, query }) {
         let result = suggestion.title;
@@ -99,7 +125,7 @@
       getList (inputValue) {
         return new Promise((resolve, reject) => {
           if (!inputValue) {
-            resolve([...this.defaultList])
+            resolve(this.records)
             return
           }
 
@@ -125,8 +151,9 @@
                   }
                 })
               })
-              resolve(result.length ? result : [...this.defaultList])
-              // resolve([...(json.items || [])])
+              const records = this.records.filter(r => r.title.toLowerCase().startsWith(inputValue.toLowerCase()));
+              result = result.filter(item => records.every(r => r.id !== item.id && r.title !== item.title))
+              resolve(records.concat(result.length ? result : []))
             }).catch(e => {
               reject(e)
             })
@@ -192,6 +219,11 @@
 
         &:hover, &.hover {
           background: #eee;
+        }
+
+        .visited {
+          color: #551A8B;
+          font-weight: bold;
         }
       }
     }
