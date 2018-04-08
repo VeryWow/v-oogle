@@ -24,9 +24,10 @@
       slot="suggestion-item",
       slot-scope="{ suggestion }",
       :title="suggestion.description")
-        span(v-html="boldenSuggestion({ suggestion, query })", :class="{ visited: !!suggestion.visited }")
-        a(v-if="suggestion.visited", @click.stop.prevent="remove(suggestion)", style="float:right", href="#")
-          | remove
+        .title(v-html="boldenSuggestion({ suggestion, query })", :class="{ visited: !!suggestion.visited }")
+        .btns
+          a.btn(v-if="suggestion.visited", @click.stop.prevent="remove(suggestion)", href="#")
+            | remove
 
       div.buttons-container.list(slot="misc-item-below", slot-scope="{ suggestions }", v-if="suggestions.length > 0")
         v-oogle-button(:has-query="!!query")
@@ -218,6 +219,8 @@
         padding: 0 16px;
         line-height: 22px;
         cursor: pointer;
+        display: table;
+        width: 100%;
 
         &:hover, &.hover {
           background: #eee;
@@ -226,6 +229,28 @@
         .visited {
           color: #551A8B;
           font-weight: bold;
+        }
+
+        & .title, & .btns {
+          vertical-align: middle;
+          display: table-cell;
+        }
+
+        & .title {
+          width: 100%;
+        }
+
+        & .btns {
+          text-align: right;
+          white-space: nowrap;
+        }
+
+        & .btns>* {
+          display: inline-block;
+
+          &:not(:last-child) {
+            margin-right: 7px;
+          }
         }
       }
     }
