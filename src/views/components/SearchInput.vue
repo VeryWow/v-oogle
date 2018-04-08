@@ -244,9 +244,9 @@
     }
 
     .inappropriate {
-      position: fixed;
+      position: absolute;
       margin-top: 60px;
-      margin-left: -32px;
+      right: 0;
       padding: 0 5px;
       color: #777;
       float: right;
