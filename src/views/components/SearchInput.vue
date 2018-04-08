@@ -31,6 +31,8 @@
       div.buttons-container.list(slot="misc-item-below", slot-scope="{ suggestions }", v-if="suggestions.length > 0")
         v-oogle-button(:has-query="!!query")
         v-oogle-button(feeling-lucky, :has-query="!!query")
+        a.inappropriate(href="https://github.com/KazanExpress/vue-simple-suggest/issues/new")
+          | Report inappropriate stuff
 
     input(name="sourceid", value="navclient", type="hidden")
 
@@ -239,6 +241,24 @@
       button {
         height: 30px;
       }
+    }
+
+    .inappropriate {
+      position: fixed;
+      margin-top: 60px;
+      margin-left: -32px;
+      padding: 0 5px;
+      color: #777;
+      float: right;
+      line-height: 22px;
+      font-size: 8pt;
+      font-style: italic;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      text-decoration: none;
+    }
+
+    .inappropriate:hover {
+      text-decoration: underline;
     }
   }
 }
