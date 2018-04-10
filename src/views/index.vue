@@ -1,7 +1,7 @@
 <template lang="pug">
-.v-oogle
-  .logo-box(:class="{ 'move-up': inputFocused }")
-    div
+main.v-oogle
+  section.logo-box(:class="{ 'move-up': inputFocused }")
+    .img
       a(href="https://github.com/VeryWow/v-oogle")
         img(
         alt="V-oogle"
@@ -9,14 +9,12 @@
         width="272"
         height="84"
         :src="logo")
-  .search-box
+  section.search-box
     search-input.search(@focus="inputFocused = true", @blur="inputFocused = false")
 </template>
 
 <script lang="ts">
-  //@ts-ignore
   import SearchInput from 'components/SearchInput.vue'
-  // import logo from '~/v-oogle.png'
 
   import Vue from 'vue'
   export default Vue.extend({
@@ -45,7 +43,7 @@
     margin-top: 89px;
     text-align: center;
 
-    div {
+    .img {
       user-select: none;
       padding-top: 109px;
       display: block;
@@ -92,12 +90,12 @@
       margin-top: 0;
       transition: margin .15s ease;
 
-      div {
+      .img {
         padding-top: 40px;
       }
 
       &.move-up {
-        margin-top: -160px;
+        margin-top: -158px;
       }
     }
     .search-box {

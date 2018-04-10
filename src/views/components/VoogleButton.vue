@@ -17,13 +17,13 @@
     },
     methods: {
       name() {
-        return this['feelingLucky'] ? 'btnI' : 'btnK'
+        return this.feelingLucky ? 'btnI' : 'btnK'
       },
       value() {
-        return this['feelingLucky'] ? 'I\'m Feeling Lucky' : 'V<span style="vertical-align: middle">·</span>oogle Search'
+        return this.feelingLucky ? 'I\'m Feeling Lucky' : 'V<span style="vertical-align: middle">·</span>oogle Search'
       },
       type() {
-        return this['hasQuery'] ? 'submit' : 'button'
+        return this.hasQuery ? 'submit' : 'button'
       },
       click() {
         return this.feelingLucky ? 'window.open("https://www.google.com/doodles", "_self")' : null

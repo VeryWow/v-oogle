@@ -2,7 +2,7 @@
   form.search-input-component(
   ref="frm",
   onsubmit="return !!q.value",
-  @submit="add(equalSuggestion ? equalSuggestion : { id: query.hashCode(), title: query })"
+  @submit="query ? add(equalSuggestion ? equalSuggestion : { id: query.hashCode(), title: query }) : null"
   action="https://google.com/search")
     vue-suggest(
     ref="suggestComponent",
@@ -18,6 +18,7 @@
       input.default-input(v-model="query",
       spellcheck="false",
       autocomplete="off",
+      type="search",
       name="q")
 
       div(
@@ -26,7 +27,7 @@
       :title="suggestion.description")
         .title(v-html="boldenSuggestion({ suggestion, query })", :class="{ visited: !!suggestion.visited }")
         .btns
-          a.btn(v-if="suggestion.visited", @click.stop.prevent="remove(suggestion)", href="#")
+          a.btn(v-if="suggestion.visited", @click.stop.prevent="console.log(suggestion)", href="#")
             | remove
 
       div.buttons-container.list(slot="misc-item-below", slot-scope="{ suggestions }", v-if="suggestions.length > 0")
@@ -209,7 +210,7 @@
       position: absolute;
       right: 0;
       left: 0;
-      top: calc(100% - 1px);
+      top: 100%;
 
       &, * {
         user-select: none;
@@ -245,8 +246,12 @@
           white-space: nowrap;
         }
 
-        & .btns>* {
+        & .btns > .btn {
           display: inline-block;
+
+          &:visited {
+            color: blue;
+          }
 
           &:not(:last-child) {
             margin-right: 7px;
