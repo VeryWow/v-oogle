@@ -15,7 +15,8 @@
     @focus="$emit('focus', $event)",
     @blur="$emit('blur', $event)",
     @select="submitForm")
-      input.default-input(v-model="query",
+      input.default-input(ref="input"
+      v-model="query",
       spellcheck="false",
       autocomplete="off",
       type="search",
@@ -70,6 +71,9 @@
         selected: null,
         records
       }
+    },
+    mounted() {
+      this.$refs.input['focus']();
     },
     computed: {
       equalSuggestion() {
