@@ -27,7 +27,7 @@
       :title="suggestion.description")
         .title(v-html="boldenSuggestion({ suggestion, query })", :class="{ visited: !!suggestion.visited }")
         .btns
-          a.btn(v-if="suggestion.visited", @click.stop.prevent="console.log(suggestion)", href="#")
+          a.btn(v-if="suggestion.visited", @click.stop.prevent="remove(suggestion)", href="#")
             | remove
 
       div.buttons-container.list(slot="misc-item-below", slot-scope="{ suggestions }", v-if="suggestions.length > 0")
