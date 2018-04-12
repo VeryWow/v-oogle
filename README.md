@@ -1,5 +1,5 @@
 # v-oogle
-Google.com, reVued
+Google.com, reVued. 🔎
 
 -----
 
