@@ -95,7 +95,7 @@ main.v-oogle
       }
 
       &.move-up {
-        margin-top: -158px;
+        margin-top: -152px;
       }
     }
     .search-box {

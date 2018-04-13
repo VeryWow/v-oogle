@@ -1,14 +1,14 @@
 <template lang="pug">
   form.search-input-component(
   ref="frm",
-  onsubmit="return !!q.value",
-  @submit="query ? add(equalSuggestion ? equalSuggestion : { id: query.hashCode(), title: query }) : null"
+  onsubmit="return !submitting && !!q.value",
+  @submit="query && add(equalSuggestion || { id: query.hashCode(), title: query })"
   action="https://google.com/search")
     vue-suggest(
     ref="suggestComponent",
     value-attribute="id",
     display-attribute="title",
-    :debounce="100",
+    :debounce="50",
     :list="getList",
     :min-length="0",
     :destyled="true",
@@ -19,7 +19,6 @@
       v-model="query",
       spellcheck="false",
       autocomplete="off",
-      type="search",
       name="q")
 
       div(
@@ -68,6 +67,7 @@
     data() {
       return {
         query: '',
+        submitting: false,
         selected: null,
         records
       }
@@ -82,15 +82,21 @@
     },
     methods: {
       submitForm(suggestion) {
+        this.submitting = true;
+        if (suggestion) {
         this.selected = suggestion;
-        this.add(this.selected);
-        this.$nextTick(() => {
+
           if (suggestion.title) {
             this.query = suggestion.title
           }
 
+          this.$nextTick(() => {
+            this.add(this.selected);
+
           this.$refs.frm['submit']()
+            this.submitting = false;
         })
+        }
       },
       add(suggestion) {
         if (suggestion) {
