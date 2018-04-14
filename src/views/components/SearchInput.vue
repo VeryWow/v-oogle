@@ -1,7 +1,7 @@
 <template lang="pug">
   form.search-input-component(
   ref="frm",
-  onsubmit="return !submitting && !!q.value",
+  :onsubmit="!submitting ? 'return !!q.value' : 'return false'",
   @submit="query && add(equalSuggestion || { id: query.hashCode(), title: query })"
   action="https://google.com/search")
     vue-suggest(
@@ -71,9 +71,6 @@
         selected: null,
         records
       }
-    },
-    mounted() {
-      this.$refs.input['focus']();
     },
     computed: {
       equalSuggestion() {
